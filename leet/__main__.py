@@ -22,7 +22,14 @@ def parse_args():
         required=False
     )
     
-    get_argparser.add_argument("question-slug-or-id")
+    get_argparser.add_argument(
+        "--over", "--overwrite", 
+        action='store_true',
+        default=False,
+        required=False
+    )
+    
+    get_argparser.add_argument("question-slug-or-id", nargs='+')
     
     # Config subcommand
     config_argparser = subparsers.add_parser("config")
