@@ -116,3 +116,7 @@ class GraphQLClient:
         
         return question_info["question"]
         
+
+    def get_problem_amount(self):
+        problem_data = self.request(problem_question_query, skip=0, limit=1, filters={}, categorySlug="")
+        return problem_data["problemsetQuestionList"]["total"]

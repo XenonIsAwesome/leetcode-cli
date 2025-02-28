@@ -1,6 +1,7 @@
 import os
 import json
 from pathlib import Path
+import random
 
 from leet import ConfigUtils
 from leet.api.gql_client import GraphQLClient
@@ -10,14 +11,8 @@ from leet.lang_handlers.factory import LangHandlerFactory
 
 gql_client = GraphQLClient()
 
-def get_handler(args):
-    # Args
-    editor = args.editor
-    lang = args.lang
-    overwrite = args.over
-    args_dict = vars(args)
-    slug = " ".join(args_dict["question-slug-or-id"])
-    
+
+def get_from_leetcode(editor: str, lang: str, overwrite: bool, slug: str):
     # Question
     question = gql_client.get_question(slug)
     question_text = question["content"]
@@ -26,7 +21,10 @@ def get_handler(args):
     
     fmt_question_text = f"https://leetcode.com/problems/{question_slug}/"
     fmt_question_text += "\n\n"
-    fmt_question_text += html2text(question_text)
+    if question_text is None:
+        fmt_question_text += "To view this question you must subscribe to premium."
+    else:
+        fmt_question_text += html2text(question_text)
 
     # Files
     leet_path = ConfigUtils()["leet_path"]
@@ -52,3 +50,18 @@ def get_handler(args):
     
     edit_file_cmd = f"{editor} {edit_file}"
     os.system(edit_file_cmd)
+
+
+def get_handler(args):
+    # Args
+    editor = args.editor
+    lang = args.lang
+    overwrite = args.over
+    args_dict = vars(args)
+    slug = " ".join(args_dict["question-slug-or-id"])
+    
+    if slug == "random":
+        slug_id = random.randint(1, gql_client.get_problem_amount())
+        slug = str(slug_id)
+    
+    get_from_leetcode(editor, lang, overwrite, slug)
