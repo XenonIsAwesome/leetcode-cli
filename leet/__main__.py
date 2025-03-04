@@ -1,11 +1,12 @@
 from argparse import ArgumentParser
+import argcomplete
 
 from leet import ConfigUtils, ArgHandlerFactory, LangHandlerFactory
 
 
 def parse_args():
     argparser = ArgumentParser(prog='leet')
-    subparsers = argparser.add_subparsers(dest='command')
+    subparsers = argparser.add_subparsers(dest='command', required=True)
     
     # Get subcommand
     get_argparser = subparsers.add_parser("get")
@@ -39,6 +40,7 @@ def parse_args():
     )
     config_argparser.add_argument("value")
     
+    argcomplete.autocomplete(argparser)
     args = argparser.parse_args()
     ArgHandlerFactory.handle(args.command, args)
 

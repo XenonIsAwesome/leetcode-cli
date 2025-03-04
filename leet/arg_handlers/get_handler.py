@@ -4,8 +4,8 @@ from pathlib import Path
 import random
 
 from leet import ConfigUtils
-from leet.api.gql_client import GraphQLClient
-from leet.api.html2text import html2text
+from leet.leetcode_api.gql_client import GraphQLClient
+from leet.leetcode_api.html2text import html2text
 from leet.lang_handlers.handler import LanguageHandler
 from leet.lang_handlers.factory import LangHandlerFactory
 
@@ -60,7 +60,7 @@ def get_handler(args):
     args_dict = vars(args)
     slug = " ".join(args_dict["question-slug-or-id"])
     
-    if slug == "random":
+    if slug in ["random", "rand"]:
         slug_id = random.randint(1, gql_client.get_problem_amount())
         slug = str(slug_id)
     
