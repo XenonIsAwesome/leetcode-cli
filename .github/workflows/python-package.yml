@@ -30,3 +30,7 @@ jobs:
         python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         python -m pip install .
+        apt update -y
+        apt install nano
+        leet config default_editor nano
+        leet get random &
