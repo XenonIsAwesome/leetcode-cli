@@ -6,7 +6,7 @@ class ConfigUtils:
     default_settings = {
         "default_language": "python",
         "default_editor": "/usr/bin/env ed",
-        "leet_path": "~/.leet/"
+        "leet_path": str(Path.home() / ".leet")
     }
 
     @property
