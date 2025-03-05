@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="leetcode-cli",
-    version="0.0.1",
+    version="0.0.2",
     packages=find_packages(),
     install_requires=[
         "gql",
@@ -19,7 +19,6 @@ setup(
         "Development Status :: 3 - Alpha",
         "Environment :: Console"
         "Programming Language :: Python :: 3 :: Only",
-        "Operating System :: POSIX :: Linux",
     ],
     python_requires='>=3.7',
 )
