@@ -39,5 +39,4 @@ jobs:
         sudo apt update -y
         sudo apt install nano -y
         leet config default_editor nano
-        leet get random &
-        echo $!
+        leet get random 
